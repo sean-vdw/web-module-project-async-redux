@@ -7,7 +7,7 @@ const Nav = () => {
     <Navbar bg="dark">
       <Container>
         <Navbar.Brand>
-          WSB Stock Sentiment
+          Daily Stock Prices
         </Navbar.Brand>
       </Container>
     </Navbar>

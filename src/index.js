@@ -9,13 +9,13 @@ import thunk from 'redux-thunk';
 
 import App from './App';
 import './index.css';
+import reducer from './reducers';
 
-// const store = createStore(reducer, applyMiddleware(thunk, logger));
+const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
-  //<Provider store={store}>
+  <Provider store={store}>
     <App />
-  //</Provider>
-  ,
+  </Provider>,
   document.getElementById('root')
 );
