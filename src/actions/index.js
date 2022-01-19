@@ -26,6 +26,7 @@ export const getTicker = (symbol) => (dispatch) => {
       dispatch(fetchSuccess(resp.data['Time Series (Daily)'][`${date}`]));
     })
     .catch(err => {
+      console.log(err);
       dispatch(fetchFail(err));
     });
 }

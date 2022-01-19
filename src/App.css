@@ -15,3 +15,8 @@ form {
 input {
   margin-right: 1%;
 }
+
+.ticker-title {
+  color: #1452ff;
+  font-weight: 600;
+}

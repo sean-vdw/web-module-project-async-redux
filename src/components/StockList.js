@@ -32,7 +32,7 @@ const StockList = ({ ticker, isFetching, error, dispatch}) => {
             </form>
           </Card.Header>
           <Card.Body>
-            <Card.Title>Today's price data for: {value}</Card.Title>
+            <Card.Title>Today's price data for: <span className="ticker-title">{value}</span></Card.Title>
             <Table striped bordered hover variant="dark">
               <thead>
                 <tr>
