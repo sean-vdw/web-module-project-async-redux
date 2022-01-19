@@ -3,6 +3,13 @@ import axios from 'axios';
 export const FETCH_START = "FETCH_START";
 export const FETCH_FAIL = "FETCH_FAIL";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
+export const FETCH_TICKER = "FETCH_TICKER";
+
+const date = new Date().toISOString().slice(0, 10);
+
+export const fetchTicker = (symbol) => {
+  return ({type: FETCH_TICKER, payload: symbol});
+}
 
 export const fetchStart = () => {
   return({type: FETCH_START});
@@ -16,12 +23,12 @@ export const fetchSuccess = (ticker) => {
   return({type: FETCH_SUCCESS, payload: ticker});
 }
 
-export const getTicker = () => (dispatch) => {
+export const getTicker = (symbol) => (dispatch) => {
   dispatch(fetchStart());
-  axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=ARKK&apikey=GS419KCS5NELZC85`)
+  axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=GS419KCS5NELZC85`)
     .then(resp => {
-      console.log("Ticker: ", resp.data['Time Series (Daily)']['2022-01-19']);
-      dispatch(fetchSuccess(resp.data['Time Series (Daily)']['2022-01-19']));
+      console.log("Ticker TODAY: ", resp.data['Time Series (Daily)'][`${date}`]);
+      dispatch(fetchSuccess(resp.data['Time Series (Daily)'][`${date}`]));
     })
     .catch(err => {
       dispatch(fetchFail(err));

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from 'react-redux';
 
 import Button from 'react-bootstrap/Button';
@@ -6,12 +6,14 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 
-import { getTicker } from "../actions";
+import { getTicker, fetchTicker } from "../actions";
 
-const StockList = ({ ticker, isFetching, error, dispatch}) => {
+const StockList = ({ ticker, isFetching, error, symbol, dispatch}) => {
+  const[value, setValue] = useState('');
+  const date = new Date().toISOString().slice(0, 10);
 
   const handleClick = () => {
-    dispatch(getTicker());
+    dispatch(getTicker(value));
   }
 
   return (
@@ -21,14 +23,16 @@ const StockList = ({ ticker, isFetching, error, dispatch}) => {
           <Card.Header>
             <form>
               <input
+                onChange={e => setValue(e.target.value)}
                 name="ticker"
+                type="text"
                 placeholder="Enter Ticker Symbol"
               />
               <Button onClick={handleClick} variant="outline-primary" size="sm">Search</Button>
             </form>
           </Card.Header>
           <Card.Body>
-            <Card.Title>Ticker: </Card.Title>
+            <Card.Title>Ticker: {value}</Card.Title>
             <Table striped bordered hover variant="dark">
               <thead>
                 <tr>
@@ -41,7 +45,7 @@ const StockList = ({ ticker, isFetching, error, dispatch}) => {
               </thead>
               <tbody>
                 <tr>
-                  <td>2022-01-19</td>
+                  <td>{date}</td>
                   <td>{ticker['1. open']}</td>
                   <td>{ticker['2. high']}</td>
                   <td>{ticker['3. low']}</td>
@@ -58,10 +62,10 @@ const StockList = ({ ticker, isFetching, error, dispatch}) => {
 
 const mapStateToProps = state => {
   return {
-    metaData: state.metaData,
     ticker: state.ticker,
     isFetching: state.isFetching,
-    error: state.error
+    error: state.error,
+    symbol: state.symbol
   };
 };
 
