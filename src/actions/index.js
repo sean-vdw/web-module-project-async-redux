@@ -12,15 +12,18 @@ export const fetchFail = (errorMessage) => {
   return({type: FETCH_FAIL, payload: errorMessage});
 }
 
-export const fetchSuccess = (stock) => {
-  return({type: FETCH_SUCCESS, payload: stock});
+export const fetchSuccess = (ticker) => {
+  return({type: FETCH_SUCCESS, payload: ticker});
 }
 
-export const getStock = () => (dispatch) => {
+export const getTicker = () => (dispatch) => {
   dispatch(fetchStart());
   axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=ARKK&apikey=GS419KCS5NELZC85`)
     .then(resp => {
-      console.log(resp);
-      dispatch(fetchSuccess());
+      console.log("Ticker: ", resp.data['Time Series (Daily)']['2022-01-19']);
+      dispatch(fetchSuccess(resp.data['Time Series (Daily)']['2022-01-19']));
     })
+    .catch(err => {
+      dispatch(fetchFail(err));
+    });
 }

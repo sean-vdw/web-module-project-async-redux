@@ -1,11 +1,12 @@
 import { FETCH_START, FETCH_FAIL, FETCH_SUCCESS } from "../actions";
 
 const initialState = {
-  stock: {
-    ticker: '',
-    sentiment_score: '',
-    sentiment: '',
-    no_of_comments: ''
+  ticker: {
+    date: '',
+    open: '',
+    high: '',
+    low: '',
+    close: ''
   },
   isFetching: false,
   error: ''
@@ -26,7 +27,7 @@ const reducer = (state = initialState, action) => {
     case FETCH_SUCCESS:
       return {
         ...state,
-        stock: action.payload
+        ticker: action.payload
       }
     default:
       return state;

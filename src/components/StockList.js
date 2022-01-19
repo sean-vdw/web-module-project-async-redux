@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from 'react-redux';
 
 import Button from 'react-bootstrap/Button';
@@ -6,13 +6,13 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 
-import { getStock } from "../actions";
+import { getTicker } from "../actions";
 
-const StockList = ({ stock, isFetching, error, dispatch}) => {
+const StockList = ({ ticker, isFetching, error, dispatch}) => {
 
-  useEffect(() => {
-    dispatch(getStock());
-  }, []);
+  const handleClick = () => {
+    dispatch(getTicker());
+  }
 
   return (
     <Container>
@@ -24,12 +24,11 @@ const StockList = ({ stock, isFetching, error, dispatch}) => {
                 name="ticker"
                 placeholder="Enter Ticker Symbol"
               />
-              <Button variant="outline-primary" size="sm">Search</Button>
+              <Button onClick={handleClick} variant="outline-primary" size="sm">Search</Button>
             </form>
           </Card.Header>
           <Card.Body>
-            <Card.Title>Special title treatment</Card.Title>
-            <Card.Text>Last updated: </Card.Text>
+            <Card.Title>Ticker: </Card.Title>
             <Table striped bordered hover variant="dark">
               <thead>
                 <tr>
@@ -42,10 +41,11 @@ const StockList = ({ stock, isFetching, error, dispatch}) => {
               </thead>
               <tbody>
                 <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
+                  <td>2022-01-19</td>
+                  <td>{ticker['1. open']}</td>
+                  <td>{ticker['2. high']}</td>
+                  <td>{ticker['3. low']}</td>
+                  <td>{ticker['4. close']}</td>
                 </tr>
               </tbody>
             </Table>
@@ -58,7 +58,8 @@ const StockList = ({ stock, isFetching, error, dispatch}) => {
 
 const mapStateToProps = state => {
   return {
-    stock: state.stock,
+    metaData: state.metaData,
+    ticker: state.ticker,
     isFetching: state.isFetching,
     error: state.error
   };
