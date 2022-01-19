@@ -6,9 +6,9 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 
-import { getTicker, fetchTicker } from "../actions";
+import { getTicker } from "../actions";
 
-const StockList = ({ ticker, isFetching, error, symbol, dispatch}) => {
+const StockList = ({ ticker, isFetching, error, dispatch}) => {
   const[value, setValue] = useState('');
   const date = new Date().toISOString().slice(0, 10);
 
@@ -32,7 +32,7 @@ const StockList = ({ ticker, isFetching, error, symbol, dispatch}) => {
             </form>
           </Card.Header>
           <Card.Body>
-            <Card.Title>Ticker: {value}</Card.Title>
+            <Card.Title>Today's price data for: {value}</Card.Title>
             <Table striped bordered hover variant="dark">
               <thead>
                 <tr>
@@ -64,8 +64,7 @@ const mapStateToProps = state => {
   return {
     ticker: state.ticker,
     isFetching: state.isFetching,
-    error: state.error,
-    symbol: state.symbol
+    error: state.error
   };
 };
 

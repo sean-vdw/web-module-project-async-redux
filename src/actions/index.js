@@ -3,13 +3,8 @@ import axios from 'axios';
 export const FETCH_START = "FETCH_START";
 export const FETCH_FAIL = "FETCH_FAIL";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
-export const FETCH_TICKER = "FETCH_TICKER";
 
 const date = new Date().toISOString().slice(0, 10);
-
-export const fetchTicker = (symbol) => {
-  return ({type: FETCH_TICKER, payload: symbol});
-}
 
 export const fetchStart = () => {
   return({type: FETCH_START});

@@ -1,10 +1,9 @@
-import { FETCH_START, FETCH_FAIL, FETCH_SUCCESS, FETCH_TICKER } from "../actions";
+import { FETCH_START, FETCH_FAIL, FETCH_SUCCESS } from "../actions";
 
 const initialState = {
   ticker: {},
   isFetching: false,
-  error: '',
-  symbol: ''
+  error: ''
 }
 
 const reducer = (state = initialState, action) => {
@@ -13,11 +12,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: true,
-      }
-    case FETCH_TICKER:
-      return {
-        ...state,
-        symbol: action.payload
       }
     case FETCH_FAIL:
       return {
